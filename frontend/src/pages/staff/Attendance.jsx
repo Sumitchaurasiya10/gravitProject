@@ -26,17 +26,7 @@ export default function AttendancePage() {
       <header className="flex items-center justify-between bg-white shadow px-6 py-3 sticky top-0 z-10">
         <h1 className="text-xl font-bold text-gray-900">Staff Management</h1>
 
-        <div className="flex items-center gap-6">
-          <button className="relative text-gray-600 hover:text-pink-600 transition">
-            <Bell className="w-6 h-6" />
-            <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-pink-500 rounded-full"></span>
-          </button>
-          <img
-            src="https://i.pravatar.cc/40"
-            alt="user avatar"
-            className="w-10 h-10 rounded-full border border-gray-300"
-          />
-        </div>
+        
       </header>
 
       {/* Page Content */}

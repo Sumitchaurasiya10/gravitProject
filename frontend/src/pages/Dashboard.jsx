@@ -97,14 +97,7 @@ export default function Dashboard() {
           <h1 className="text-2xl font-bold text-black">Dashboard</h1>
         </div>
 
-        <div className="flex items-center gap-4">
-          <BellIcon className="w-6 h-6 cursor-pointer text-gray-600 hover:text-pink-500 transition" />
-          <img
-            src="https://i.pravatar.cc/40"
-            alt="User"
-            className="w-10 h-10 rounded-full border hover:scale-105 transition"
-          />
-        </div>
+       
       </div>
 
       {/* Stats Widgets */}

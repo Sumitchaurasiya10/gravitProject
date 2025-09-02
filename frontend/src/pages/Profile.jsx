@@ -25,24 +25,7 @@ export default function Profile() {
       {/* Header */}
       <header className="w-full max-w-4xl flex justify-between items-center mb-8">
         <h2 className="text-2xl font-semibold text-gray-900">Profile</h2>
-        <div className="flex items-center gap-4">
-          {/* 🔔 Notification Button */}
-          <button
-            className="relative"
-            onClick={() => alert("Go to Notifications.jsx")}
-          >
-            <span className="absolute -top-1 -right-1 bg-pink-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
-              3
-            </span>
-            🔔
-          </button>
-
-          <img
-            src={profileImage}
-            alt="User"
-            className="w-10 h-10 rounded-full border"
-          />
-        </div>
+        
       </header>
 
       {/* Profile Layout */}
