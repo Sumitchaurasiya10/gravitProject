@@ -89,25 +89,23 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="space-y-6 p-6 bg-gray-50 min-h-screen">
-      {/* Header Replaced */}
+    <div className="space-y-6 p-4 sm:p-6 bg-gray-50 min-h-screen">
+      {/* Header */}
       <div className="flex justify-between items-center mb-6 flex-wrap gap-3">
         <div className="flex items-center gap-2">
-          <ArrowLeftIcon className="w-6 h-6 cursor-pointer text-black hover:text-pink-500 transition" />
-          <h1 className="text-2xl font-bold text-black">Dashboard</h1>
+          <ArrowLeftIcon className="w-5 h-5 sm:w-6 sm:h-6 cursor-pointer text-black hover:text-pink-500 transition" />
+          <h1 className="text-xl sm:text-2xl font-bold text-black">Dashboard</h1>
         </div>
-
-       
       </div>
 
       {/* Stats Widgets */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols- xl:grid-cols-4 gap-7">
+      <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
         {/* Daily Sales */}
-        <div className="p-5 rounded-2xl bg-white border border-gray-200 shadow hover:shadow-lg transition">
-          <p className="text-gray-600 text-sm">Daily Sales</p>
-          <h2 className="text-2xl font-semibold text-gray-900">$2k</h2>
+        <div className="p-4 sm:p-5 rounded-xl sm:rounded-2xl bg-white border border-gray-200 shadow hover:shadow-lg transition">
+          <p className="text-gray-600 text-xs sm:text-sm">Daily Sales</p>
+          <h2 className="text-xl sm:text-2xl font-semibold text-gray-900">$2k</h2>
           <p className="text-xs text-gray-500 mt-1">9 February 2024</p>
-          <div className="h-16 mt-3">
+          <div className="h-14 sm:h-16 mt-3">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={salesData}>
                 <Bar dataKey="value" fill="#4ade80" radius={[4, 4, 0, 0]} />
@@ -117,11 +115,11 @@ export default function Dashboard() {
         </div>
 
         {/* Monthly Revenue */}
-        <div className="p-5 rounded-2xl bg-white border border-gray-200 shadow hover:shadow-lg transition">
-          <p className="text-gray-600 text-sm">Monthly Revenue</p>
-          <h2 className="text-2xl font-semibold text-gray-900">$55k</h2>
+        <div className="p-4 sm:p-5 rounded-xl sm:rounded-2xl bg-white border border-gray-200 shadow hover:shadow-lg transition">
+          <p className="text-gray-600 text-xs sm:text-sm">Monthly Revenue</p>
+          <h2 className="text-xl sm:text-2xl font-semibold text-gray-900">$55k</h2>
           <p className="text-xs text-gray-500 mt-1">1 Jan - 1 Feb</p>
-          <div className="h-16 mt-3">
+          <div className="h-14 sm:h-16 mt-3">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={revenueData}>
                 <Bar dataKey="value" fill="#38bdf8" radius={[4, 4, 0, 0]} />
@@ -131,11 +129,11 @@ export default function Dashboard() {
         </div>
 
         {/* Table Occupancy */}
-        <div className="p-5 rounded-2xl bg-white border border-gray-200 shadow hover:shadow-lg transition">
-          <p className="text-gray-600 text-sm">Table Occupancy</p>
-          <h2 className="text-2xl font-semibold text-gray-900">25 Tables</h2>
+        <div className="p-4 sm:p-5 rounded-xl sm:rounded-2xl bg-white border border-gray-200 shadow hover:shadow-lg transition">
+          <p className="text-gray-600 text-xs sm:text-sm">Table Occupancy</p>
+          <h2 className="text-xl sm:text-2xl font-semibold text-gray-900">25 Tables</h2>
           <p className="text-xs text-gray-500 mt-1">Active now</p>
-          <div className="h-16 mt-3">
+          <div className="h-14 sm:h-16 mt-3">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={occupancyData}>
                 <Bar dataKey="value" fill="#f472b6" radius={[4, 4, 0, 0]} />
@@ -146,18 +144,18 @@ export default function Dashboard() {
       </div>
 
       {/* Popular Dishes + Chart */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         {/* Popular Dishes (1) */}
-        <div className="p-5 rounded-2xl bg-white border border-gray-200 shadow">
+        <div className="p-4 sm:p-5 rounded-xl sm:rounded-2xl bg-white border border-gray-200 shadow">
           <div className="flex justify-between items-center mb-3">
-            <h3 className="text-lg font-semibold text-gray-900">
+            <h3 className="text-base sm:text-lg font-semibold text-gray-900">
               Popular Dishes
             </h3>
-            <button className="text-sm text-pink-600 hover:underline">
+            <button className="text-xs sm:text-sm text-pink-600 hover:underline">
               See All
             </button>
           </div>
-          <ul className="space-y-3">
+          <ul className="space-y-2 sm:space-y-3">
             {[
               { name: "Chicken Parmesan", status: "In Stock", price: "$55.00" },
               { name: "Chicken Parmesan", status: "In Stock", price: "$55.00" },
@@ -170,35 +168,37 @@ export default function Dashboard() {
             ].map((dish, i) => (
               <li
                 key={i}
-                className="flex justify-between items-center p-3 rounded-xl bg-gray-50 border border-gray-200"
+                className="flex flex-col xs:flex-row justify-between items-start xs:items-center p-2 sm:p-3 rounded-lg sm:rounded-xl bg-gray-50 border border-gray-200 gap-2 xs:gap-0"
               >
-                <span className="text-gray-800">{dish.name}</span>
-                <span
-                  className={`text-sm ${
-                    dish.status === "In Stock"
-                      ? "text-green-600"
-                      : "text-red-600"
-                  }`}
-                >
-                  {dish.status}
-                </span>
-                <span className="text-gray-700">{dish.price}</span>
+                <span className="text-sm sm:text-base text-gray-800">{dish.name}</span>
+                <div className="flex items-center gap-2 xs:gap-4">
+                  <span
+                    className={`text-xs sm:text-sm ${
+                      dish.status === "In Stock"
+                        ? "text-green-600"
+                        : "text-red-600"
+                    }`}
+                  >
+                    {dish.status}
+                  </span>
+                  <span className="text-xs sm:text-sm text-gray-700">{dish.price}</span>
+                </div>
               </li>
             ))}
           </ul>
         </div>
 
         {/* Popular Dishes (2) */}
-        <div className="p-5 rounded-2xl bg-white border border-gray-200 shadow">
+        <div className="p-4 sm:p-5 rounded-xl sm:rounded-2xl bg-white border border-gray-200 shadow">
           <div className="flex justify-between items-center mb-3">
-            <h3 className="text-lg font-semibold text-gray-900">
+            <h3 className="text-base sm:text-lg font-semibold text-gray-900">
               Popular Dishes
             </h3>
-            <button className="text-sm text-pink-600 hover:underline">
+            <button className="text-xs sm:text-sm text-pink-600 hover:underline">
               See All
             </button>
           </div>
-          <ul className="space-y-3">
+          <ul className="space-y-2 sm:space-y-3">
             {[
               { name: "Grilled Salmon", status: "In Stock", price: "$65.00" },
               { name: "Veggie Burger", status: "In Stock", price: "$35.00" },
@@ -207,19 +207,21 @@ export default function Dashboard() {
             ].map((dish, i) => (
               <li
                 key={i}
-                className="flex justify-between items-center p-3 rounded-xl bg-gray-50 border border-gray-200"
+                className="flex flex-col xs:flex-row justify-between items-start xs:items-center p-2 sm:p-3 rounded-lg sm:rounded-xl bg-gray-50 border border-gray-200 gap-2 xs:gap-0"
               >
-                <span className="text-gray-800">{dish.name}</span>
-                <span
-                  className={`text-sm ${
-                    dish.status === "In Stock"
-                      ? "text-green-600"
-                      : "text-red-600"
-                  }`}
-                >
-                  {dish.status}
-                </span>
-                <span className="text-gray-700">{dish.price}</span>
+                <span className="text-sm sm:text-base text-gray-800">{dish.name}</span>
+                <div className="flex items-center gap-2 xs:gap-4">
+                  <span
+                    className={`text-xs sm:text-sm ${
+                      dish.status === "In Stock"
+                        ? "text-green-600"
+                        : "text-red-600"
+                    }`}
+                  >
+                    {dish.status}
+                  </span>
+                  <span className="text-xs sm:text-sm text-gray-700">{dish.price}</span>
+                </div>
               </li>
             ))}
           </ul>
@@ -227,17 +229,17 @@ export default function Dashboard() {
       </div>
 
       {/* Chart Section */}
-      <div className="p-5 rounded-2xl bg-white border border-gray-200 shadow">
-        <div className="flex justify-between items-center mb-3">
-          <h3 className="text-lg font-semibold text-gray-900">Overview</h3>
-          <div className="flex items-center space-x-3">
+      <div className="p-4 sm:p-5 rounded-xl sm:rounded-2xl bg-white border border-gray-200 shadow">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 gap-3 sm:gap-0">
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900">Overview</h3>
+          <div className="flex flex-col xs:flex-row items-start xs:items-center space-y-2 xs:space-y-0 xs:space-x-3">
             {/* Tabs */}
             <div className="flex space-x-2">
               {["Monthly", "Weekly", "Daily"].map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`px-3 py-1 text-sm rounded-lg ${
+                  className={`px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-lg ${
                     activeTab === tab
                       ? "bg-pink-500 text-white"
                       : "bg-gray-100 text-gray-600 hover:bg-gray-200"
@@ -248,18 +250,18 @@ export default function Dashboard() {
               ))}
             </div>
             {/* Export button */}
-            <button className="px-4 py-1 text-sm rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-100">
+            <button className="px-3 sm:px-4 py-1 text-xs sm:text-sm rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-100 mt-2 xs:mt-0">
               Export
             </button>
           </div>
         </div>
 
         {/* Overview Chart */}
-        <div className="h-72">
+        <div className="h-60 sm:h-72">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart
               data={getChartData()}
-              margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+              margin={{ top: 10, right: 10, left: 0, bottom: 0 }}
             >
               <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
               <XAxis
@@ -271,8 +273,9 @@ export default function Dashboard() {
                     : "day"
                 }
                 stroke="#6b7280"
+                fontSize={12}
               />
-              <YAxis stroke="#6b7280" />
+              <YAxis stroke="#6b7280" fontSize={12} />
               <Tooltip />
               <Legend />
               <Bar dataKey="revenue" fill="#38bdf8" radius={[4, 4, 0, 0]} />

@@ -1,28 +1,28 @@
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { Eye, EyeOff } from 'lucide-react'
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Eye, EyeOff } from "lucide-react";
+import logo from "../../assets/CULlai.svg";
 
 export default function Login() {
-  const navigate = useNavigate()
-  const [showPassword, setShowPassword] = useState(false)
+  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit = (e) => {
-    e.preventDefault()
-    navigate('/dashboard')
-  }
+    e.preventDefault();
+    navigate("/dashboard");
+  };
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-white px-4">
-      {/* Logo/Title */}
-      <h1 className="text-3xl sm:text-4xl font-bold text-pink-500 mb-6 sm:mb-8 text-center">
-        COSYPOS
-      </h1>
-
       {/* Login Form */}
       <form
         onSubmit={onSubmit}
-        className="w-full max-w-md bg-gray-100 p-6 sm:p-8 rounded-2xl shadow-md border border-gray-300"
+        className="w-full max-w-md bg-white-100 p-6 sm:p-8 rounded-2xl shadow-md border border-gray-300"
       >
+      {/* Logo/Title */}
+      <h1 className="mb-6 sm:mb-2 flex justify-center">
+        <img src={logo} alt="CUL Logo" className="h-16 sm:h-20 md:h-24" />
+      </h1>
         <h2 className="text-xl sm:text-2xl font-semibold mb-2 text-gray-900 text-center">
           Login!
         </h2>
@@ -42,7 +42,7 @@ export default function Login() {
         <label className="block text-sm mb-1 text-gray-700">Password</label>
         <div className="relative mb-4">
           <input
-            type={showPassword ? 'text' : 'password'}
+            type={showPassword ? "text" : "password"}
             className="w-full px-3 py-2 rounded-xl bg-white border border-gray-400 outline-none pr-10 text-sm sm:text-base"
             placeholder="Enter your password"
           />
@@ -71,5 +71,5 @@ export default function Login() {
         </button>
       </form>
     </div>
-  )
+  );
 }

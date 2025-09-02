@@ -10,12 +10,13 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
+  Legend,
 } from "recharts";
 
 const STATUS_COLORS = {
   Confirmed: "#ff4d6d",
   Awaited: "#ff80a1",
-  Cancelled: "#ff99b7",
+  Cancelled: "#ff8717",
   Failed: "#ffc2d1",
 };
 
@@ -31,6 +32,19 @@ const RevenueReport = () => {
 
   const statusList = Object.keys(STATUS_COLORS);
   const [activeStatuses, setActiveStatuses] = useState(statusList);
+  const [isSmallScreen, setIsSmallScreen] = useState(typeof window !== 'undefined' && window.innerWidth < 768);
+
+  // Listen for window resize
+  useMemo(() => {
+    if (typeof window === 'undefined') return;
+    
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 768);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Pie Data
   const pieData = useMemo(() => {
@@ -67,26 +81,26 @@ const RevenueReport = () => {
 
   return (
     <div className="w-full min-h-screen bg-gradient-to-br from-gray-50 to-white">
-      <div className="max-w-7xl mx-auto p-3 sm:p-4 md:p-6 lg:p-8 space-y-6">
+      <div className="max-w-7xl mx-auto p-3 sm:p-4 md:p-6 space-y-4 md:space-y-6">
         
         {/* Charts Section */}
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 md:gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
           
           {/* Donut Chart */}
-          <div className="bg-white rounded-xl md:rounded-2xl shadow-lg p-4 md:p-6 hover:shadow-xl transition-shadow duration-300">
-            <h3 className="text-gray-900 font-bold mb-4 text-lg md:text-xl lg:text-2xl text-center">
+          <div className="bg-white rounded-xl shadow-lg p-3 sm:p-4 md:p-6 hover:shadow-xl transition-shadow duration-300">
+            <h3 className="text-gray-900 font-bold mb-3 md:mb-4 text-base sm:text-lg md:text-xl text-center">
               Total Revenue
             </h3>
             
-            <div className="w-full h-64 sm:h-72 md:h-80 lg:h-96">
+            <div className="w-full h-48 sm:h-56 md:h-64 lg:h-72">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
                     data={pieData}
                     cx="50%"
                     cy="50%"
-                    innerRadius="45%"
-                    outerRadius="75%"
+                    innerRadius={isSmallScreen ? "40%" : "45%"}
+                    outerRadius={isSmallScreen ? "70%" : "75%"}
                     paddingAngle={3}
                     dataKey="value"
                   >
@@ -100,14 +114,15 @@ const RevenueReport = () => {
                       backgroundColor: "#fff",
                       border: "1px solid #e5e7eb",
                       borderRadius: "8px",
-                      boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)"
+                      boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
+                      fontSize: isSmallScreen ? '12px' : '14px'
                     }}
                   />
                   <text
                     x="50%"
                     y="45%"
                     textAnchor="middle"
-                    className="text-sm md:text-base font-semibold"
+                    className={`${isSmallScreen ? 'text-xs' : 'text-sm'} font-semibold`}
                     fill="#6b7280"
                   >
                     Total
@@ -116,7 +131,7 @@ const RevenueReport = () => {
                     x="50%"
                     y="55%"
                     textAnchor="middle"
-                    className="text-lg md:text-xl lg:text-2xl font-bold"
+                    className={`${isSmallScreen ? 'text-base' : 'text-lg md:text-xl'} font-bold`}
                     fill="#111827"
                   >
                     ${totalRevenue.toLocaleString()}
@@ -126,19 +141,19 @@ const RevenueReport = () => {
             </div>
 
             {/* Responsive Legend */}
-            <div className="mt-4 md:mt-6 grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-3">
+            <div className="mt-3 md:mt-4 grid grid-cols-1 xs:grid-cols-2 gap-2">
               {pieData.map((item, i) => (
-                <div key={i} className="flex items-center justify-between p-2 md:p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-                  <div className="flex items-center space-x-2 md:space-x-3">
+                <div key={i} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                  <div className="flex items-center space-x-2">
                     <span
-                      className="w-3 h-3 md:w-4 md:h-4 rounded-full flex-shrink-0"
+                      className="w-3 h-3 rounded-full flex-shrink-0"
                       style={{ backgroundColor: COLORS[i] }}
                     />
-                    <span className="text-gray-700 text-xs sm:text-sm md:text-base font-medium truncate">
+                    <span className="text-gray-700 text-xs sm:text-sm font-medium truncate">
                       {item.name}
                     </span>
                   </div>
-                  <span className="text-xs sm:text-sm md:text-base font-bold text-gray-900 ml-2">
+                  <span className="text-xs sm:text-sm font-bold text-gray-900 ml-1">
                     ${item.value.toLocaleString()}
                   </span>
                 </div>
@@ -147,20 +162,20 @@ const RevenueReport = () => {
           </div>
 
           {/* Line Chart */}
-          <div className="bg-white rounded-xl md:rounded-2xl shadow-lg p-4 md:p-6 hover:shadow-xl transition-shadow duration-300">
-            <h3 className="text-gray-900 font-bold mb-4 text-lg md:text-xl lg:text-2xl">
+          <div className="bg-white rounded-xl shadow-lg p-3 sm:p-4 md:p-6 hover:shadow-xl transition-shadow duration-300">
+            <h3 className="text-gray-900 font-bold mb-3 md:mb-4 text-base sm:text-lg md:text-xl">
               Revenue Trends
             </h3>
 
             {/* Responsive Toggle Buttons */}
-            <div className="flex flex-wrap gap-1 sm:gap-2 mb-4 md:mb-6">
+            <div className="flex flex-wrap gap-1 sm:gap-2 mb-3 md:mb-4">
               {statusList.map((status) => (
                 <button
                   key={status}
                   onClick={() => toggleStatus(status)}
-                  className={`px-2 sm:px-3 md:px-4 py-1 md:py-2 rounded-lg text-xs sm:text-sm md:text-base font-medium border transition-all duration-200 ${
+                  className={`px-2 sm:px-3 py-1 rounded-lg text-xs sm:text-sm font-medium border transition-all duration-200 ${
                     activeStatuses.includes(status)
-                      ? "text-white shadow-md transform scale-105"
+                      ? "text-white shadow-md"
                       : "text-gray-700 bg-gray-100 hover:bg-gray-200"
                   }`}
                   style={{
@@ -175,18 +190,18 @@ const RevenueReport = () => {
               ))}
             </div>
 
-            <div className="w-full h-64 sm:h-72 md:h-80 lg:h-96">
+            <div className="w-full h-48 sm:h-56 md:h-64 lg:h-72">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={lineData} margin={{ top: 5, right: 10, left: 5, bottom: 5 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
                   <XAxis 
                     dataKey="month" 
-                    tick={{ fill: "#374151", fontSize: 12 }}
+                    tick={{ fill: "#374151", fontSize: isSmallScreen ? 10 : 12 }}
                     axisLine={{ stroke: "#9ca3af" }}
                     tickLine={{ stroke: "#9ca3af" }}
                   />
                   <YAxis 
-                    tick={{ fill: "#374151", fontSize: 12 }}
+                    tick={{ fill: "#374151", fontSize: isSmallScreen ? 10 : 12 }}
                     axisLine={{ stroke: "#9ca3af" }}
                     tickLine={{ stroke: "#9ca3af" }}
                     tickFormatter={(value) => `$${(value/1000).toFixed(0)}k`}
@@ -197,9 +212,15 @@ const RevenueReport = () => {
                       backgroundColor: "#fff",
                       border: "1px solid #e5e7eb",
                       borderRadius: "8px",
-                      boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)"
+                      boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
+                      fontSize: isSmallScreen ? '12px' : '14px'
                     }}
                   />
+                  {!isSmallScreen && (
+                    <Legend 
+                      wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }}
+                    />
+                  )}
 
                   {activeStatuses.includes("Confirmed") && (
                     <Line 
@@ -207,8 +228,8 @@ const RevenueReport = () => {
                       dataKey="Confirmed" 
                       stroke={STATUS_COLORS.Confirmed} 
                       strokeWidth={2}
-                      dot={{ r: 4, fill: STATUS_COLORS.Confirmed }}
-                      activeDot={{ r: 6, fill: STATUS_COLORS.Confirmed }}
+                      dot={{ r: isSmallScreen ? 3 : 4, fill: STATUS_COLORS.Confirmed }}
+                      activeDot={{ r: isSmallScreen ? 5 : 6, fill: STATUS_COLORS.Confirmed }}
                     />
                   )}
                   {activeStatuses.includes("Awaited") && (
@@ -217,8 +238,8 @@ const RevenueReport = () => {
                       dataKey="Awaited" 
                       stroke={STATUS_COLORS.Awaited} 
                       strokeWidth={2}
-                      dot={{ r: 4, fill: STATUS_COLORS.Awaited }}
-                      activeDot={{ r: 6, fill: STATUS_COLORS.Awaited }}
+                      dot={{ r: isSmallScreen ? 3 : 4, fill: STATUS_COLORS.Awaited }}
+                      activeDot={{ r: isSmallScreen ? 5 : 6, fill: STATUS_COLORS.Awaited }}
                     />
                   )}
                   {activeStatuses.includes("Cancelled") && (
@@ -227,8 +248,8 @@ const RevenueReport = () => {
                       dataKey="Cancelled" 
                       stroke={STATUS_COLORS.Cancelled} 
                       strokeWidth={2}
-                      dot={{ r: 4, fill: STATUS_COLORS.Cancelled }}
-                      activeDot={{ r: 6, fill: STATUS_COLORS.Cancelled }}
+                      dot={{ r: isSmallScreen ? 3 : 4, fill: STATUS_COLORS.Cancelled }}
+                      activeDot={{ r: isSmallScreen ? 5 : 6, fill: STATUS_COLORS.Cancelled }}
                     />
                   )}
                   {activeStatuses.includes("Failed") && (
@@ -237,8 +258,8 @@ const RevenueReport = () => {
                       dataKey="Failed" 
                       stroke={STATUS_COLORS.Failed} 
                       strokeWidth={2}
-                      dot={{ r: 4, fill: STATUS_COLORS.Failed }}
-                      activeDot={{ r: 6, fill: STATUS_COLORS.Failed }}
+                      dot={{ r: isSmallScreen ? 3 : 4, fill: STATUS_COLORS.Failed }}
+                      activeDot={{ r: isSmallScreen ? 5 : 6, fill: STATUS_COLORS.Failed }}
                     />
                   )}
                 </LineChart>
@@ -248,22 +269,22 @@ const RevenueReport = () => {
         </div>
 
         {/* Responsive Table */}
-        <div className="bg-white rounded-xl md:rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
-          <div className="p-4 md:p-6 border-b border-gray-200">
-            <h3 className="text-gray-900 font-bold text-lg md:text-xl lg:text-2xl">
+        <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+          <div className="p-3 sm:p-4 md:p-6 border-b border-gray-200">
+            <h3 className="text-gray-900 font-bold text-base sm:text-lg md:text-xl">
               Revenue Details
             </h3>
           </div>
           
           {/* Mobile Card View */}
           <div className="block md:hidden">
-            <div className="p-4 space-y-4">
+            <div className="p-3 space-y-3">
               {tableData.map((item) => (
-                <div key={item.id} className="bg-gray-50 rounded-lg p-4 space-y-3">
+                <div key={item.id} className="bg-gray-50 rounded-lg p-3 space-y-2">
                   <div className="flex justify-between items-start">
                     <div>
-                      <h4 className="font-semibold text-gray-900">{item.food}</h4>
-                      <p className="text-sm text-gray-600">#{item.id}</p>
+                      <h4 className="font-semibold text-gray-900 text-sm sm:text-base">{item.food}</h4>
+                      <p className="text-xs text-gray-600">#{item.id}</p>
                     </div>
                     <span
                       className="px-2 py-1 rounded-full text-xs font-medium text-white"
@@ -273,7 +294,7 @@ const RevenueReport = () => {
                     </span>
                   </div>
                   
-                  <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div className="grid grid-cols-2 gap-3 text-xs sm:text-sm">
                     <div>
                       <p className="text-gray-600">Date</p>
                       <p className="font-medium">{item.date}</p>
@@ -288,13 +309,13 @@ const RevenueReport = () => {
                     </div>
                     <div>
                       <p className="text-gray-600">Revenue</p>
-                      <p className="font-bold text-lg text-gray-900">${item.revenue.toLocaleString()}</p>
+                      <p className="font-bold text-gray-900">${item.revenue.toLocaleString()}</p>
                     </div>
                   </div>
                   
                   <div className="pt-2 border-t border-gray-200">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">Profit Margin</span>
+                    <div className="flex justify-between items-center text-xs sm:text-sm">
+                      <span className="text-gray-600">Profit Margin</span>
                       <span className="font-medium">{item.margin}</span>
                     </div>
                   </div>
@@ -303,13 +324,13 @@ const RevenueReport = () => {
             </div>
           </div>
 
-          {/* Desktop Table View */}
+          {/* Tablet and Desktop Table View */}
           <div className="hidden md:block overflow-x-auto">
             <table className="w-full text-sm lg:text-base text-left text-gray-700">
               <thead className="bg-gray-50 text-gray-900">
                 <tr>
-                  {["S.No", "Top Selling Food", "Revenue By Date", "Sell Price", "Profit", "Profit Margin", "Total Revenue", "Status"].map((head, i) => (
-                    <th key={i} className="px-4 lg:px-6 py-3 lg:py-4 font-semibold">
+                  {["S.No", "Top Selling Food", "Date", "Price", "Profit", "Margin", "Revenue", "Status"].map((head, i) => (
+                    <th key={i} className="px-3 py-2 lg:px-4 lg:py-3 font-semibold text-xs sm:text-sm">
                       {head}
                     </th>
                   ))}
@@ -318,16 +339,20 @@ const RevenueReport = () => {
               <tbody className="divide-y divide-gray-200">
                 {tableData.map((item) => (
                   <tr key={item.id} className="hover:bg-gray-50 transition-colors duration-200">
-                    <td className="px-4 lg:px-6 py-3 lg:py-4 font-medium">{item.id}</td>
-                    <td className="px-4 lg:px-6 py-3 lg:py-4 font-medium text-gray-900">{item.food}</td>
-                    <td className="px-4 lg:px-6 py-3 lg:py-4">{item.date}</td>
-                    <td className="px-4 lg:px-6 py-3 lg:py-4">${item.price}</td>
-                    <td className="px-4 lg:px-6 py-3 lg:py-4">${item.profit.toLocaleString()}</td>
-                    <td className="px-4 lg:px-6 py-3 lg:py-4">{item.margin}</td>
-                    <td className="px-4 lg:px-6 py-3 lg:py-4 font-bold text-gray-900">${item.revenue.toLocaleString()}</td>
-                    <td className="px-4 lg:px-6 py-3 lg:py-4">
+                    <td className="px-3 py-2 lg:px-4 lg:py-3 font-medium text-xs sm:text-sm">{item.id}</td>
+                    <td className="px-3 py-2 lg:px-4 lg:py-3 font-medium text-gray-900 text-xs sm:text-sm truncate max-w-[120px] lg:max-w-none">
+                      {item.food}
+                    </td>
+                    <td className="px-3 py-2 lg:px-4 lg:py-3 text-xs sm:text-sm">{item.date}</td>
+                    <td className="px-3 py-2 lg:px-4 lg:py-3 text-xs sm:text-sm">${item.price}</td>
+                    <td className="px-3 py-2 lg:px-4 lg:py-3 text-xs sm:text-sm">${item.profit.toLocaleString()}</td>
+                    <td className="px-3 py-2 lg:px-4 lg:py-3 text-xs sm:text-sm">{item.margin}</td>
+                    <td className="px-3 py-2 lg:px-4 lg:py-3 font-bold text-gray-900 text-xs sm:text-sm">
+                      ${item.revenue.toLocaleString()}
+                    </td>
+                    <td className="px-3 py-2 lg:px-4 lg:py-3">
                       <span
-                        className="px-3 py-1 rounded-full text-xs lg:text-sm font-medium text-white"
+                        className="px-2 py-1 rounded-full text-xs font-medium text-white"
                         style={{ backgroundColor: STATUS_COLORS[item.status] }}
                       >
                         {item.status}

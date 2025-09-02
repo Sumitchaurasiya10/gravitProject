@@ -5,7 +5,6 @@ import {
   Menu as MenuIcon,
   Package,
   Users,
-  ClipboardList,
   CalendarDays,
   Bell,
   BarChart3,
@@ -13,13 +12,13 @@ import {
   LogOut,
   UtensilsCrossed,
 } from "lucide-react";
+import logo from "../assets/CULlai.svg";
 
 const nav = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { to: "/menu", label: "Menu", icon: UtensilsCrossed },
   { to: "/inventory", label: "Inventory", icon: Package },
   { to: "/staff", label: "Staff/Attendance", icon: Users },
-  // { to: "/attendance", label: "Attendance", icon: ClipboardList },
   { to: "/reservation", label: "Reservation", icon: CalendarDays },
   { to: "/orders", label: "Orders/Tables", icon: UtensilsCrossed },
   { to: "/reports", label: "Reports", icon: BarChart3 },
@@ -33,14 +32,14 @@ export default function AppLayout() {
   const location = useLocation();
   const sidebarRef = useRef(null);
 
-  // Close sidebar when clicking outside (only when collapsed)
+  // Close sidebar when clicking outside (only on small screens)
   useEffect(() => {
     function handleClickOutside(e) {
       if (
         sidebarRef.current &&
         !sidebarRef.current.contains(e.target) &&
         open === true &&
-        window.innerWidth < 1024 // only auto-close on small screens
+        window.innerWidth < 1024
       ) {
         setOpen(false);
       }
@@ -67,7 +66,13 @@ export default function AppLayout() {
           >
             <MenuIcon className="w-5 h-5" />
           </button>
-          {open && <span className="font-bold tracking-wide">COSYPOS</span>}
+
+          {/* Show logo only when sidebar is open */}
+          {open && (
+            <h1 className="flex justify-center">
+              <img src={logo} alt="CUL Logo" className="h-12 sm:h-14 w-auto" />
+            </h1>
+          )}
         </div>
 
         {/* Nav */}

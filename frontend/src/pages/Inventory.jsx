@@ -122,41 +122,41 @@ export default function Inventory() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 text-black p-6 flex flex-col relative">
+    <div className="min-h-screen bg-gray-50 text-black p-4 sm:p-6 flex flex-col relative">
       {/* Header */}
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Inventory</h1>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+        <h1 className="text-xl sm:text-2xl font-bold">Inventory</h1>
         <button 
           onClick={() => setShowSidebar(true)}
-          className="bg-pink-500 px-4 py-2 rounded-lg text-white font-medium hover:bg-pink-600 transition-colors"
+          className="bg-pink-500 px-4 py-2 rounded-lg text-white font-medium hover:bg-pink-600 transition-colors w-full sm:w-auto"
         >
           Add New Inventory
         </button>
       </div>
 
       {/* Total Products */}
-      <p className="mb-6 text-lg">
+      <p className="mb-6 text-base sm:text-lg">
         <span className="font-bold">{products.length * 50}</span> total products
       </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 sm:gap-6">
         {/* Sidebar Filters */}
-        <div className="bg-white border p-4 rounded-xl space-y-4 col-span-1">
+        <div className="bg-white border p-4 rounded-xl space-y-4 lg:col-span-1 order-2 lg:order-1">
           <div>
-            <h2 className="font-semibold mb-2">Product Status</h2>
+            <h2 className="font-semibold mb-2 text-sm sm:text-base">Product Status</h2>
             <div className="flex flex-wrap gap-2">
-              <button className="bg-pink-500 px-3 py-1 rounded-md text-white">
+              <button className="bg-pink-500 px-2 sm:px-3 py-1 rounded-md text-white text-xs sm:text-sm">
                 All 150
               </button>
-              <button className="bg-gray-200 px-3 py-1 rounded-md">Active 120</button>
-              <button className="bg-gray-200 px-3 py-1 rounded-md">Inactive 10</button>
-              <button className="bg-gray-200 px-3 py-1 rounded-md">Draft 10</button>
+              <button className="bg-gray-200 px-2 sm:px-3 py-1 rounded-md text-xs sm:text-sm">Active 120</button>
+              <button className="bg-gray-200 px-2 sm:px-3 py-1 rounded-md text-xs sm:text-sm">Inactive 10</button>
+              <button className="bg-gray-200 px-2 sm:px-3 py-1 rounded-md text-xs sm:text-sm">Draft 10</button>
             </div>
           </div>
 
           <div>
-            <h2 className="font-semibold mb-2">Category</h2>
-            <select className="w-full bg-gray-100 p-2 rounded-md border">
+            <h2 className="font-semibold mb-2 text-sm sm:text-base">Category</h2>
+            <select className="w-full bg-gray-100 p-2 rounded-md border text-sm sm:text-base">
               <option>All</option>
               <option>Chicken</option>
               <option>Burger</option>
@@ -165,16 +165,16 @@ export default function Inventory() {
           </div>
 
           <div>
-            <h2 className="font-semibold mb-2">Stock</h2>
-            <select className="w-full bg-gray-100 p-2 rounded-md border">
+            <h2 className="font-semibold mb-2 text-sm sm:text-base">Stock</h2>
+            <select className="w-full bg-gray-100 p-2 rounded-md border text-sm sm:text-base">
               <option>InStock</option>
               <option>Out of Stock</option>
             </select>
           </div>
 
           <div>
-            <h2 className="font-semibold mb-2">Value</h2>
-            <select className="w-full bg-gray-100 p-2 rounded-md border">
+            <h2 className="font-semibold mb-2 text-sm sm:text-base">Value</h2>
+            <select className="w-full bg-gray-100 p-2 rounded-md border text-sm sm:text-base">
               <option>Litre</option>
               <option>Kg</option>
               <option>Piece</option>
@@ -182,65 +182,65 @@ export default function Inventory() {
           </div>
 
           <div>
-            <h2 className="font-semibold mb-2">Piece / Item / Quantity</h2>
+            <h2 className="font-semibold mb-2 text-sm sm:text-base">Piece / Item / Quantity</h2>
             <input
               type="number"
               placeholder="50"
-              className="w-full bg-gray-100 p-2 rounded-md border"
+              className="w-full bg-gray-100 p-2 rounded-md border text-sm sm:text-base"
             />
           </div>
 
           <div>
-            <h2 className="font-semibold mb-2">Price</h2>
+            <h2 className="font-semibold mb-2 text-sm sm:text-base">Price</h2>
             <div className="flex gap-2">
               <input
                 type="number"
                 placeholder="50"
-                className="w-1/2 bg-gray-100 p-2 rounded-md border"
+                className="w-1/2 bg-gray-100 p-2 rounded-md border text-sm sm:text-base"
               />
               <input
                 type="number"
                 placeholder="120"
-                className="w-1/2 bg-gray-100 p-2 rounded-md border"
+                className="w-1/2 bg-gray-100 p-2 rounded-md border text-sm sm:text-base"
               />
             </div>
           </div>
 
-          <button className="w-full bg-pink-500 py-2 rounded-md text-white">
+          <button className="w-full bg-pink-500 py-2 rounded-md text-white text-sm sm:text-base">
             Reset Filters
           </button>
         </div>
 
         {/* Products List */}
-        <div className="col-span-3 space-y-4">
+        <div className="lg:col-span-3 space-y-4 order-1 lg:order-2">
           {products.map((product) => (
             <div
               key={product.id}
-              className="bg-white border p-4 rounded-xl flex items-center justify-between"
+              className="bg-white border p-4 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-0"
             >
               {/* Product Left */}
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-4 w-full sm:w-auto">
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="w-16 h-16 rounded-md object-cover"
+                  className="w-12 h-12 sm:w-16 sm:h-16 rounded-md object-cover"
                 />
-                <div>
-                  <h3 className="font-semibold">{product.name}</h3>
-                  <p className="text-sm">
+                <div className="flex-1">
+                  <h3 className="font-semibold text-sm sm:text-base">{product.name}</h3>
+                  <p className="text-xs sm:text-sm">
                     Stocked Product:{" "}
                     <span className="text-green-600">
                       {product.stock} in Stock
                     </span>
                   </p>
-                  <p className="text-sm">
+                  <p className="text-xs sm:text-sm">
                     Status: <span className="font-medium">{product.status}</span>
                   </p>
-                  <p className="text-sm">
+                  <p className="text-xs sm:text-sm">
                     Category:{" "}
                     <span className="font-medium">{product.category}</span>
                   </p>
-                  <p className="text-sm">
+                  <p className="text-xs sm:text-sm">
                     Perishable: {" "}
                     <span className={`font-medium ${product.perishable ? 'text-orange-600' : 'text-blue-600'}`}>
                       {product.perishable ? 'Yes' : 'No'}
@@ -250,17 +250,19 @@ export default function Inventory() {
               </div>
 
               {/* Product Right */}
-              <div className="flex items-center gap-4">
-                <p className="text-sm">
+              <div className="flex items-center justify-between sm:justify-end gap-4 w-full sm:w-auto">
+                <p className="text-xs sm:text-sm">
                   Retail Price:{" "}
                   <span className="font-semibold">${product.price.toFixed(2)}</span>
                 </p>
-                <button className="text-gray-600 hover:text-black">
-                  <Edit size={18} />
-                </button>
-                <button className="text-red-500 hover:text-red-700">
-                  <Trash2 size={18} />
-                </button>
+                <div className="flex gap-2">
+                  <button className="text-gray-600 hover:text-black">
+                    <Edit size={16} className="sm:w-[18px] sm:h-[18px]" />
+                  </button>
+                  <button className="text-red-500 hover:text-red-700">
+                    <Trash2 size={16} className="sm:w-[18px] sm:h-[18px]" />
+                  </button>
+                </div>
               </div>
             </div>
           ))}
@@ -268,8 +270,8 @@ export default function Inventory() {
       </div>
 
       {/* Right Sidebar */}
-      <div className={`fixed top-0 right-0 h-full w-96 bg-white shadow-2xl transform transition-transform duration-300 ease-in-out z-50 ${showSidebar ? 'translate-x-0' : 'translate-x-full'}`}>
-        <div className="p-6 h-full overflow-y-auto">
+      <div className={`fixed top-0 right-0 h-full w-full sm:w-96 bg-white shadow-2xl transform transition-transform duration-300 ease-in-out z-50 ${showSidebar ? 'translate-x-0' : 'translate-x-full'}`}>
+        <div className="p-4 sm:p-6 h-full overflow-y-auto">
           {/* Sidebar Header */}
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
@@ -279,7 +281,7 @@ export default function Inventory() {
               >
                 <ArrowLeft size={20} />
               </button>
-              <h2 className="text-xl font-bold">Add New Product</h2>
+              <h2 className="text-lg sm:text-xl font-bold">Add New Product</h2>
             </div>
             <button 
               onClick={closeSidebar}
@@ -311,8 +313,8 @@ export default function Inventory() {
                     </button>
                   </div>
                 ) : (
-                  <div className="py-8">
-                    <Upload className="mx-auto h-12 w-12 text-gray-400 mb-2" />
+                  <div className="py-6 sm:py-8">
+                    <Upload className="mx-auto h-10 w-10 sm:h-12 sm:w-12 text-gray-400 mb-2" />
                     <p className="text-sm text-gray-600">Click to upload image</p>
                   </div>
                 )}
@@ -325,7 +327,7 @@ export default function Inventory() {
                 />
                 <label
                   htmlFor="image-upload"
-                  className="text-black cursor-pointer inline-block mt-2 bg-gray-200 px-4 py-2 rounded-md text-sm hover:bg-gray-300"
+                  className="text-black cursor-pointer inline-block mt-2 bg-gray-200 px-3 sm:px-4 py-2 rounded-md text-xs sm:text-sm hover:bg-gray-300"
                 >
                   Choose File
                 </label>
@@ -339,7 +341,7 @@ export default function Inventory() {
                 type="text"
                 value={newProduct.name}
                 onChange={(e) => handleInputChange('name', e.target.value)}
-                className="text-black w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                className="text-black w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent text-sm sm:text-base"
                 placeholder="Enter product name"
                 required
               />
@@ -351,7 +353,7 @@ export default function Inventory() {
               <select
                 value={newProduct.category}
                 onChange={(e) => handleInputChange('category', e.target.value)}
-                className="text-black w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                className="text-black w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent text-sm sm:text-base"
                 required
               >
                 <option value="">Select Category</option>
@@ -367,7 +369,7 @@ export default function Inventory() {
               <select
                 value={newProduct.quantity}
                 onChange={(e) => handleInputChange('quantity', e.target.value)}
-                className="text-black w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                className="text-black w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent text-sm sm:text-base"
               >
                 <option value="">Select Unit</option>
                 {quantityUnits.map(unit => (
@@ -383,7 +385,7 @@ export default function Inventory() {
                 type="number"
                 value={newProduct.stock}
                 onChange={(e) => handleInputChange('stock', e.target.value)}
-                className="text-black w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                className="text-black w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent text-sm sm:text-base"
                 placeholder="Enter stock quantity"
                 min="0"
               />
@@ -395,7 +397,7 @@ export default function Inventory() {
               <select
                 value={newProduct.status}
                 onChange={(e) => handleInputChange('status', e.target.value)}
-                className="text-black w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                className="text-black w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent text-sm sm:text-base"
               >
                 {statusOptions.map(status => (
                   <option key={status} value={status}>{status}</option>
@@ -410,7 +412,7 @@ export default function Inventory() {
                 type="number"
                 value={newProduct.price}
                 onChange={(e) => handleInputChange('price', e.target.value)}
-                className=" text-black w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                className="text-black w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent text-sm sm:text-base"
                 placeholder="Enter price"
                 step="0.01"
                 min="0"
@@ -422,7 +424,7 @@ export default function Inventory() {
             <div>
               <label className="block text-sm font-medium mb-2">Perishable</label>
               <div className="flex items-center space-x-4">
-                <label className="flex items-center">
+                <label className="flex items-center text-sm sm:text-base">
                   <input
                     type="radio"
                     name="perishable"
@@ -432,7 +434,7 @@ export default function Inventory() {
                   />
                   Yes
                 </label>
-                <label className="flex items-center">
+                <label className="flex items-center text-sm sm:text-base">
                   <input
                     type="radio"
                     name="perishable"
@@ -450,7 +452,7 @@ export default function Inventory() {
               <button
                 type="button"
                 onClick={handleSubmit}
-                className="w-full bg-pink-500 text-white py-3 rounded-lg font-medium hover:bg-pink-600 transition-colors"
+                className="w-full bg-pink-500 text-white py-3 rounded-lg font-medium hover:bg-pink-600 transition-colors text-sm sm:text-base"
               >
                 Add Product
               </button>
